@@ -1,0 +1,9 @@
+digraph "CFG for '<init>' method" {
+	label="digraph \"CFG for '<init>' method\""; 
+	"Entry-node" [shape=box, color=black, label="Entry-node\l\l
+	this := @this: simple;  \l
+	specialinvoke this.<java.lang.Object: void <init>()>();  \l
+	return;  \l
+"];
+
+}

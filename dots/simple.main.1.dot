@@ -1,0 +1,62 @@
+digraph "CFG for 'main' method" {
+	label="digraph \"CFG for 'main' method\""; 
+	"TargetBlock.1" -> "TargetBlock.4";
+	"TargetBlock.1" -> "TargetBlock.5";
+	"TargetBlock.0" -> "TargetBlock.1";
+	"TargetBlock.2" -> "TargetBlock.0";
+	"Entry-node" -> "TargetBlock.2";
+	"Entry-node" -> "TargetBlock.3";
+	"TargetBlock.3" -> "TargetBlock.0";
+	"TargetBlock.4" -> "TargetBlock.1";
+	"Entry-node" [shape=box, color=black, label="Entry-node\l\l
+	args := @parameter0: java.lang.String[];  \l
+	AAA = 30;  \l
+	BBB = 30;  \l
+	CCC = ' ';  \l
+	$r0 = args[0];  \l
+	if $r0 != 'Nossa' GOTO TargetBlock.3 : TargetBlock.2  \l
+"];
+
+	"TargetBlock.2" [shape=box, color=black, label="TargetBlock.2\l\l
+	AAA_1 = 0;  \l
+	goto [TargetBlock.0];  \l
+"];
+
+	"TargetBlock.3" [shape=box, color=black, label="TargetBlock.3\l\l
+	BBB_1 = -99 + AAA;  \l
+	BBB_1_1 = BBB_1 + AAA;  \l
+	GOTO TargetBlock.0;  \l
+"];
+
+	"TargetBlock.0" [shape=box, color=black, label="TargetBlock.0\l\l
+	AAA_2 = Phi(AAA_1, AAA);  \l
+	arr$ = args;  \l
+	len$ = lengthof arr$;  \l
+	i$ = 0;  \l
+	GOTO TargetBlock.1;  \l
+"];
+
+	"TargetBlock.1" [shape=box, color=black, label="TargetBlock.1\l\l
+	CCC_1 = Phi(CCC, CCC_2);  \l
+	i$_1 = Phi(i$, i$_2);  \l
+	AAA_3 = Phi(AAA_2, AAA_4);  \l
+	if i$_1 >= len$ GOTO TargetBlock.5 : TargetBlock.4  \l
+"];
+
+	"TargetBlock.4" [shape=box, color=black, label="TargetBlock.4\l\l
+	nova = arr$[i$_1];  \l
+	$r1 = new java.lang.StringBuilder;  \l
+	specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();  \l
+	$r1_1 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(CCC_1);  \l
+	$r1_2 = virtualinvoke $r1_1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(nova);  \l
+	CCC_2 = virtualinvoke $r1_2.<java.lang.StringBuilder: java.lang.String toString()>();  \l
+	AAA_4 = AAA_3 + AAA_3;  \l
+	i$_2 = i$_1 + 1;  \l
+	goto [TargetBlock.1];  \l
+"];
+
+	"TargetBlock.5" [shape=box, color=black, label="TargetBlock.5\l\l
+	return;  \l
+"];
+
+}
