@@ -4,6 +4,7 @@ public class simple {
     int BBB = 30;
     String CCC = " ";
     if ( args[0] == "Nossa" ) {
+      int VEJAAAAA = 0;
       AAA = 0;
     } else {
       BBB = -99 + AAA;
@@ -11,6 +12,7 @@ public class simple {
     }
  
     for (String nova : args) {
+       int QUEISSOOO = args.length;
        CCC += nova;
        AAA += AAA;
     }

@@ -13,3 +13,5 @@ sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle
 
 
 java -classpath /home/juniocezar/eclipse/kepler-workspace/3-Soot-GettingStated/bin:/home/juniocezar/Apps/soot/pre-compiled-jars/jasminclasses-2.5.0.jar:/home/juniocezar/Apps/soot/pre-compiled-jars/polyglotclasses-1.3.5.jar:/home/juniocezar/Apps/soot/pre-compiled-jars/sootclasses-2.5.0.jar MySootMainExtension -f S HelloWorld
+
+java -cp .:input:bin:jar-libs/jasminclasses-2.5.0.jar:jar-libs/polyglotclasses-1.3.5.jar:jar-libs/soot-trunk-2.5.1.jar:jar-libs/android.jar sootparser.SimpleParser -process-dir hello.apk

@@ -15,6 +15,7 @@ public class DotGraph {
   private List<String> methodArguments;
   private List<DotNode> nodes;
   private Map<String, List<String>> edges;
+  private List<String> ifNodes;
   private Integer autoId;
 
   public DotGraph (String pkg, String dc, String method, String file) {
@@ -25,6 +26,7 @@ public class DotGraph {
     autoId = 0;
     nodes = new ArrayList<DotNode>();
     edges = new HashMap<String, List<String>>();
+    ifNodes = new ArrayList<String>();
     methodArguments = new ArrayList<String>();
   }
 
@@ -51,10 +53,13 @@ public class DotGraph {
   // todo: define get methods
 
 public void newNode (List<String> lines, String name, String label, String shape,
-  String color, List<String> succs) {
+    String color, List<String> succs, boolean ifNode) {
 
     DotNode dotNode = new DotNode(name, label, shape, color);
-    //dotNode.setId("block." + autoId);
+    
+    if (ifNode)
+       ifNodes.add(name);
+    
     dotNode.setId(name);
     autoId++;
 
@@ -81,16 +86,28 @@ public void newNode (List<String> lines, String name, String label, String shape
       File file = new File(outfile);
       FileWriter fw = new FileWriter(file, true);
       pw = new PrintWriter(fw);
+      String add = "";
 
       pw.println("digraph \"CFG for '"+ methodName + "' method\" {");
-      pw.println("\tlabel=\"digraph \\\"CFG for '"+ methodName + "' method\\\"\"; ");
+      pw.println("\tlabel=\"CFG for '" + "." + methodName + "' method of class '" 
+      + definingClassName + "'\"; ");
 
       /* printing all edges */
       for (Map.Entry<String, List<String>> entry : edges.entrySet()) {
         String from = entry.getKey();
-        for (String to : entry.getValue()) {
-            pw.println("\t\"" + from + "\" -> \"" + to + "\";");
-        }
+        if (ifNodes.contains(from)) {
+          String id = ":s1";
+          for (String to : entry.getValue()) {
+             pw.println("\t" + from + id + " -> \"" + to + "\";");
+             id = ":s0";
+          }  
+        } else
+           for (String to : entry.getValue()) {
+               if (ifNodes.contains(to))
+                 add = ":head";
+               pw.println("\t" + from + " -> " + to + add + ";");
+               add = "";
+           }
       }
 
       /* printing nodes' body */

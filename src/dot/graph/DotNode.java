@@ -8,6 +8,7 @@ public class DotNode {
   /* labels are sequence of string statements to print at final generation */
   private String name, label, shape, color, identifier;
   private List<String> labels;
+  private boolean ifNode;
 
   /* shapes: box, ellipse, oval, circle, point, triangle, hexagon, custon
              double....*/
@@ -18,6 +19,7 @@ public class DotNode {
     shape = arg3;
     color = arg4;
     labels = new ArrayList<String>();
+    ifNode = false;
   }
 
   public DotNode (String arg1) {
@@ -42,6 +44,14 @@ public class DotNode {
 
   public void setShape (String arg1) {
     shape = arg1;
+  }
+  
+  public void setIfNode() {
+     ifNode = true;
+  }
+  
+  public boolean isIfNode() {
+     return ifNode;
   }
 
   public void setId (String id) {
@@ -89,13 +99,19 @@ public class DotNode {
   public String toString () {
     String body;
 
-    body = "\t\"" + identifier + "\" [shape=" + shape + ", color=" + color + ", label=\"";
-    body += name + "\\l\\l\n";
+    shape = "record";
+    body = "\t\"" + identifier + "\" [shape=" + shape + ", color=" + color + ", label=\"{<head>";
+    body += name + ":";
     for (String line: labels) {
-      line = line.replace('\"','\'');
-      body += "\t" + line + "  \\l\n";
+      body += "\\l";
+      line = line.replace("\"","\\\"");
+      line = line.replace("<","\\<");
+      line = line.replace(">","\\>");
+      line = line.replace("###",">");
+      line = line.replace("##","<");
+      body += "   " + line;
     }
-    body += "\"];";
+    body += "}\"];";
     return body;
   }
 
