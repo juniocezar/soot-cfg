@@ -133,21 +133,21 @@ public class SimpleParser {
       SimpleParser sp = new SimpleParser();
       
       //prefer Android APK files// -src-prec apk
-      Options.v().set_src_prec(Options.src_prec_apk);
+ Options.v().set_src_prec(Options.src_prec_apk);
       
-      //output as APK, too//-f J
+     /* //output as APK, too//-f J
       Options.v().set_output_format(Options.output_format_dex);
       
         // resolve the PrintStream and System soot-classes
       Scene.v().addBasicClass("java.io.PrintStream",SootClass.SIGNATURES);
       Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
-        
+        */
       Options.v().set_verbose(false);
       Options.v().set_whole_program(false);
       Options.v().set_app(true);
       Options.v().set_via_shimple(true);
-      Options.v().set_src_prec(Options.src_prec_only_class);
-      Options.v().set_output_format(Options.output_format_S);
+/*      Options.v().set_src_prec(Options.src_prec_only_class);
+      Options.v().set_output_format(Options.output_format_S);*/
       Options.v().set_allow_phantom_refs(true);
       Options.v().set_xml_attributes(false);
       Options.v().set_whole_shimple(false);
