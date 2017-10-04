@@ -13,7 +13,7 @@ build:
 
 run:
 	clear
-	java -cp .:input:bin:jar-libs/jasminclasses-2.5.0.jar:jar-libs/polyglotclasses-1.3.5.jar:jar-libs/soot-trunk-2.5.1.jar sootparser.SimpleParser -p jb use-original-names -f S $(FILE)
+	java -cp .:input:bin:jar-libs/jasminclasses-2.5.0.jar:jar-libs/polyglotclasses-1.3.5.jar:jar-libs/sootclasses-2.5.0.jar:jar-libs/soot-trunk-2.5.1.jar sootparser.SimpleParser -src-prec class -p jb use-original-names -f S $(FILE)
 	mv -v *dot dots
 
 
