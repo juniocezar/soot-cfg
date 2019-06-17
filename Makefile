@@ -2,29 +2,28 @@ IN := dots
 OUT := pdfs
 SOURCES := $(wildcard $(IN)/*.dot)
 OBJECTS := $(patsubst $(IN)/%.dot, $(OUT)/%.pdf, $(SOURCES))
+JAVAHOME := $$HOME/Apps/java8/
 
 
 all: build run pdf
 
 build:
+	mkdir -p bin pdfs dots
 	javac -cp bin src/dot/graph/DotNode.java -d bin
 	javac -cp bin src/dot/graph/DotGraph.java -d bin
-	javac -cp bin:jar-libs/jasminclasses-2.5.0.jar:jar-libs/polyglotclasses-1.3.5.jar:jar-libs/soot-trunk-2.5.1.jar src/sootparser/SimpleParser.java -d bin
+	javac -cp bin:jar-libs/sootclasses-trunk-jar-with-dependencies.jar src/sootparser/SimpleParser.java -d bin
 
 run:
 	clear
-	java -cp .:input:bin:jar-libs/jasminclasses-2.5.0.jar:jar-libs/polyglotclasses-1.3.5.jar:jar-libs/sootclasses-2.5.0.jar:jar-libs/soot-trunk-2.5.1.jar sootparser.SimpleParser -src-prec class -p jb use-original-names -f S $(FILE)
+	mkdir -p dots
+	java -cp .:input:bin:jar-libs/sootclasses-trunk-jar-with-dependencies.jar sootparser.SimpleParser -cp sample:$(JAVAHOME)/jre/lib/rt.jar -src-prec class -p jb use-original-names -f J $(FILE)
 	mv -v *dot dots
-
 
 pdf: $(OBJECTS)
 
 $(OUT)/%.pdf: $(IN)/%.dot
+	mkdir -p pdfs
 	dot -Tpdf $< > $@
 
-
-android:
-	java -cp .:./bin:jar-libs/soot-trunk-2.5.1.jar sootparser.SimpleParser -android-jars jar-libs -allow-phantom-refs -src-prec apk -f S -process-dir /home/junio/repositorios/cfg-soot/app2.apk 
-
 clean:
-	rm pdfs/* dots/*
+	rm -rf pdfs dots sootOutput
